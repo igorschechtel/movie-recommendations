@@ -3,13 +3,13 @@
     <div class="d-flex align-center">
       <v-img
         alt="Popcorny Logo"
-        class="shrink mr-2"
+        class="shrink mr-4"
         contain
         src="../assets/popcorn-icon.png"
         transition="scale-transition"
         width="40"
       />
-      <h3 class="font-weight-regular">Popcorny</h3>
+      <router-link to="/"><h1 class="brand-title">Popcorny</h1></router-link>
     </div>
   </v-app-bar>
 </template>
@@ -23,3 +23,10 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.v-app-bar >>> h1.brand-title {
+  color: #fff;
+  font-size: 2rem;
+}
+</style>

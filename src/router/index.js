@@ -2,12 +2,19 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import store from '../store';
 
-import Home from '../views/Home.vue';
+import Register from '../views/Register.vue';
 import Login from '../views/Login.vue';
+import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
+  {
+    path: '/register',
+    name: 'Register',
+    component: Register,
+    meta: { requiresAuth: false },
+  },
   {
     path: '/login',
     name: 'Login',
@@ -28,7 +35,7 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.requiresAuth && !store.state.username) {
+  if (to.meta.requiresAuth && !store.state.user.isLoggedIn) {
     next({
       path: '/login',
     });
