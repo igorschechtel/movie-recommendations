@@ -6,6 +6,7 @@ import Register from '../views/Register.vue';
 import SignIn from '../views/SignIn.vue';
 import Home from '../views/Home.vue';
 import EditProfile from '../views/EditProfile.vue';
+import MovieDetails from '../views/MovieDetails.vue';
 
 Vue.use(VueRouter);
 
@@ -32,6 +33,12 @@ const routes = [
     path: '/profile',
     name: 'EditProfile',
     component: EditProfile,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/movie/:id',
+    name: 'MovieDetails',
+    component: MovieDetails,
     meta: { requiresAuth: true },
   },
 ];

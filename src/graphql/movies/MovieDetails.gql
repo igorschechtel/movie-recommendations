@@ -1,0 +1,22 @@
+query MovieDetails($id: ID!) {
+  Movie(movieId: $id) {
+    budget
+    countries
+    imdbRating
+    plot
+    poster
+    released
+    revenue
+    runtime
+    title
+    year
+    similarMovies {
+      title
+      year
+      runtime
+      poster
+      imdbRating
+      movieId
+    }
+  }
+}
