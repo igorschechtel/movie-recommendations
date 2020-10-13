@@ -40,19 +40,24 @@
     </v-row>
     <v-row>
       <v-col>
-        <ApolloQuery :query="require('@/graphql/GetMovies.gql')">
+        <ApolloQuery :query="require('@/graphql/movies/RecentReleases.gql')">
           <template v-slot="{ result: { loading, error, data } }">
             <div v-if="loading" class="loading apollo">Carregando...</div>
             <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
             <v-slide-group show-arrows="desktop" cols="auto" v-else-if="data">
               <v-slide-item v-for="movie in data.Movie" :key="movie._id">
-                <v-card class="mx-4">
-                  <v-card-title>{{ movie.title }}</v-card-title>
+                <v-card class="mx-4" width="300px">
+                  <v-container>
+                    <h3>{{ movie.title }}</h3>
+                    <span class="grey--text">{{
+                      formattedReleaseDate(movie.released)
+                    }}</span>
+                  </v-container>
 
                   <div>
                     <v-img
                       contain
-                      width="200px"
+                      width="300px"
                       :aspect-ratio="2 / 3"
                       :src="movie.poster"
                     ></v-img>
@@ -68,5 +73,13 @@
 </template>
 
 <script>
-export default {};
+import moment from 'moment';
+
+export default {
+  methods: {
+    formattedReleaseDate(date) {
+      return moment(date).format('DD/MM/YYYY');
+    },
+  },
+};
 </script>

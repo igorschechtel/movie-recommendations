@@ -1,9 +1,0 @@
-query {
-  Movie(first: 15) {
-    title
-    released
-    runtime
-    poster
-    _id
-  }
-}

@@ -1,0 +1,9 @@
+query {
+  Movie(orderBy: released_desc, first: 20, filter: { released_not: null }) {
+    title
+    released
+    runtime
+    poster
+    _id
+  }
+}

@@ -25,7 +25,7 @@
             <ApolloMutation
               :mutation="require('@/graphql/users/CreateUser.gql')"
               :variables="{
-                name: inputUsername
+                name: inputUsername,
               }"
               @done="onDone"
             >
@@ -65,25 +65,47 @@
 <script>
 export default {
   data: () => ({
-    inputUsername: ""
+    inputUsername: '',
   }),
 
   methods: {
     register(mutate) {
-      if (this.inputUsername.length > 1) {
-        mutate();
+      // Check username length
+      if (this.inputUsername.length < 4) {
+        this.$store.commit('showSnackbar', {
+          text: 'Username must have at least 4 characters',
+        });
+        return;
       }
+
+      // Check if username is taken
+      this.$apollo
+        .query({
+          query: require('@/graphql/users/GetUser.gql'),
+          variables: { name: this.inputUsername },
+        })
+        .then(({ data }) => {
+          if (data.User.length > 0) {
+            this.$store.commit('showSnackbar', {
+              text: 'This username is already taken',
+            });
+          }
+          // Register
+          else {
+            mutate();
+          }
+        });
     },
 
     onDone({ data }) {
-      this.$store.commit("setUser", {
+      this.$store.commit('setUser', {
         isLoggedIn: true,
         name: data.CreateUser.name,
-        id: data.CreateUser._id
+        id: data.CreateUser.userId,
       });
-      this.$router.replace("/");
-    }
-  }
+      this.$router.replace('/');
+    },
+  },
 };
 </script>
 

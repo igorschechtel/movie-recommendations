@@ -1,0 +1,6 @@
+query Login($name: String!) {
+  User(filter: { name: $name }) {
+    name
+    userId
+  }
+}

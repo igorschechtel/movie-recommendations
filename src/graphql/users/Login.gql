@@ -1,6 +1,0 @@
-query Login($name: String!) {
-  User {
-    name(filter: $name)
-    _id
-  }
-}

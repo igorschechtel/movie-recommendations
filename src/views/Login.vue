@@ -13,34 +13,27 @@
 
           <v-divider></v-divider>
 
-          <v-container fluid class="pa-4">
-            <p v-if="$apollo.loading">Logging in...</p>
-            <p v-else-if="$apollo.error">
-              An error occurred: {{ $apollo.error }}
-            </p>
+          <v-container v-if="!$apollo.loading" fluid class="pa-4">
+            <v-row>
+              <v-col class="py-1">
+                <v-text-field
+                  @keyup.enter="login"
+                  placeholder="Your name"
+                  v-model="inputUsername"
+                ></v-text-field>
+              </v-col>
+            </v-row>
 
-            <template v-else>
-              <v-row>
-                <v-col class="py-1">
-                  <v-text-field
-                    @keyup.enter="login"
-                    placeholder="Your name"
-                    v-model="inputUsername"
-                  ></v-text-field>
-                </v-col>
-              </v-row>
-
-              <v-row>
-                <v-col class="text-center">
-                  <v-btn
-                    color="primary"
-                    :disabled="inputUsername.length === 0"
-                    @click="login"
-                    >Login</v-btn
-                  >
-                </v-col>
-              </v-row>
-            </template>
+            <v-row>
+              <v-col class="text-center">
+                <v-btn
+                  color="primary"
+                  :disabled="inputUsername.length === 0"
+                  @click="login"
+                  >Login</v-btn
+                >
+              </v-col>
+            </v-row>
           </v-container>
         </v-card>
       </v-col>
@@ -51,16 +44,39 @@
 <script>
 export default {
   data: () => ({
-    inputUsername: ""
+    inputUsername: '',
   }),
 
   methods: {
     login() {
-      if (this.inputUsername.length > 1) {
-        // this.$apollo.query
+      if (this.inputUsername.length < 4) {
+        this.$store.commit('showSnackbar', {
+          text: 'Username must have at least 4 characters',
+        });
+        return;
       }
-    }
-  }
+
+      this.$apollo
+        .query({
+          query: require('@/graphql/users/GetUser.gql'),
+          variables: { name: this.inputUsername },
+        })
+        .then(({ data }) => {
+          if (data.User.length > 0) {
+            this.$store.commit('setUser', {
+              isLoggedIn: true,
+              name: data.User[0].name,
+              id: data.User[0].userId,
+            });
+            this.$router.replace('/');
+          } else {
+            this.$store.commit('showSnackbar', {
+              text: 'User not found',
+            });
+          }
+        });
+    },
+  },
 };
 </script>
 
