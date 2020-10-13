@@ -45,22 +45,34 @@
             <div v-if="loading" class="loading apollo">Carregando...</div>
             <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
             <v-slide-group show-arrows="desktop" cols="auto" v-else-if="data">
-              <v-slide-item v-for="movie in data.Movie" :key="movie._id">
-                <v-card class="mx-4" width="300px">
+              <v-slide-item v-for="movie in data.Movie" :key="movie.movieId">
+                <v-card
+                  class="mx-4 py-0 d-flex flex-column justify-space-between"
+                  width="250px"
+                >
+                  <!-- General info -->
                   <v-container>
                     <h3>{{ movie.title }}</h3>
-                    <span class="grey--text">{{
-                      formattedReleaseDate(movie.released)
+                    <span class="grey--text">{{ movie.year }}</span>
+                    <span v-if="movie.runtime" class="grey--text">{{
+                      ` ・ ${movie.runtime} min`
                     }}</span>
                   </v-container>
 
                   <div>
+                    <!-- Image -->
                     <v-img
                       contain
-                      width="300px"
+                      width="250px"
                       :aspect-ratio="2 / 3"
                       :src="movie.poster"
                     ></v-img>
+
+                    <!-- Rating -->
+                    <Rating
+                      :imdbRating="movie.imdbRating"
+                      :movieId="movie.movieId"
+                    />
                   </div>
                 </v-card>
               </v-slide-item>
@@ -73,13 +85,11 @@
 </template>
 
 <script>
-import moment from 'moment';
+import Rating from '../components/Rating';
 
 export default {
-  methods: {
-    formattedReleaseDate(date) {
-      return moment(date).format('DD/MM/YYYY');
-    },
+  components: {
+    Rating,
   },
 };
 </script>

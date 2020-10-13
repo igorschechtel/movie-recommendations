@@ -9,6 +9,10 @@ const state = {
 const getters = {
   userIsLoggedIn(state) {
     return state.user.isLoggedIn;
+  },
+
+  userId(state) {
+    return state.user.id;
   }
 };
 

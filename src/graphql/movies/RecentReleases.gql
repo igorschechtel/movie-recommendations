@@ -1,9 +1,10 @@
 query {
   Movie(orderBy: released_desc, first: 20, filter: { released_not: null }) {
     title
-    released
+    year
     runtime
     poster
-    _id
+    imdbRating
+    movieId
   }
 }
