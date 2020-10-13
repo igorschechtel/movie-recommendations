@@ -1,12 +1,12 @@
 <template>
-  <v-container fluid class="login-container">
+  <v-container fluid class="signin-container">
     <v-row justify="center" class="px-8 mt-4">
       <v-col style="max-width: 500px">
         <v-card>
           <v-container style="background-color: #e15c64" class="white--text">
             <v-row>
               <v-col class="py-0">
-                <h3>Easy Login</h3>
+                <h3>Easy Sign In</h3>
               </v-col>
             </v-row>
           </v-container>
@@ -17,7 +17,7 @@
             <v-row>
               <v-col class="py-1">
                 <v-text-field
-                  @keyup.enter="login"
+                  @keyup.enter="signIn"
                   placeholder="Your name"
                   v-model="inputUsername"
                 ></v-text-field>
@@ -29,8 +29,8 @@
                 <v-btn
                   color="primary"
                   :disabled="inputUsername.length === 0"
-                  @click="login"
-                  >Login</v-btn
+                  @click="signIn"
+                  >Sign In</v-btn
                 >
               </v-col>
             </v-row>
@@ -48,7 +48,7 @@ export default {
   }),
 
   methods: {
-    login() {
+    signIn() {
       if (this.inputUsername.length < 4) {
         this.$store.commit('showSnackbar', {
           text: 'Username must have at least 4 characters',
@@ -81,7 +81,7 @@ export default {
 </script>
 
 <style scoped>
-.login-container {
+.signin-container {
   height: calc(100vh - 56px);
   background-color: #f0e3ce;
 }

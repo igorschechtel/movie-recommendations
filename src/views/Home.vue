@@ -16,6 +16,65 @@
         >
       </v-col>
     </v-row>
+    <v-row>
+      <v-col>
+        <ApolloQuery
+          :query="require('@/graphql/movies/Recommended.gql')"
+          :variables="{ userId }"
+        >
+          <template v-slot="{ result: { loading, error, data } }">
+            <div v-if="loading" class="loading apollo">Carregando...</div>
+            <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
+            <template v-else-if="data">
+              <v-slide-group
+                show-arrows="desktop"
+                v-if="data.User[0].recommendedMovies.length > 0"
+              >
+                <v-slide-item
+                  v-for="movie in data.User[0].recommendedMovies"
+                  :key="movie.movieId"
+                >
+                  <v-card
+                    class="mx-4 py-0 d-flex flex-column justify-space-between"
+                    width="250px"
+                  >
+                    <!-- General info -->
+                    <v-container>
+                      <h3>{{ movie.title }}</h3>
+                      <span class="grey--text">{{ movie.year }}</span>
+                      <span v-if="movie.runtime" class="grey--text">{{
+                        ` ・ ${movie.runtime} min`
+                      }}</span>
+                    </v-container>
+
+                    <div>
+                      <!-- Image -->
+                      <v-img
+                        contain
+                        width="250px"
+                        :aspect-ratio="2 / 3"
+                        :src="movie.poster"
+                      ></v-img>
+
+                      <!-- Rating -->
+                      <Rating
+                        :imdbRating="movie.imdbRating"
+                        :movieId="movie.movieId"
+                      />
+                    </div>
+                  </v-card>
+                </v-slide-item>
+              </v-slide-group>
+              <p class="grey--text text--darken-1" v-else>
+                We don't have enough data to make you recommendations. Keep
+                rating movies and we'll show you some personalized
+                recommendations when possible.
+              </p>
+            </template>
+          </template>
+        </ApolloQuery>
+      </v-col>
+    </v-row>
 
     <v-divider></v-divider>
 
@@ -38,13 +97,14 @@
         >
       </v-col>
     </v-row>
+
     <v-row>
       <v-col>
         <ApolloQuery :query="require('@/graphql/movies/RecentReleases.gql')">
           <template v-slot="{ result: { loading, error, data } }">
             <div v-if="loading" class="loading apollo">Carregando...</div>
             <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
-            <v-slide-group show-arrows="desktop" cols="auto" v-else-if="data">
+            <v-slide-group show-arrows="desktop" v-else-if="data">
               <v-slide-item v-for="movie in data.Movie" :key="movie.movieId">
                 <v-card
                   class="mx-4 py-0 d-flex flex-column justify-space-between"
@@ -90,6 +150,12 @@ import Rating from '../components/Rating';
 export default {
   components: {
     Rating,
+  },
+
+  computed: {
+    userId() {
+      return this.$store.getters.userId;
+    },
   },
 };
 </script>

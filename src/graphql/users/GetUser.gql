@@ -1,4 +1,4 @@
-query Login($name: String!) {
+query GetUser($name: String!) {
   User(filter: { name: $name }) {
     name
     userId

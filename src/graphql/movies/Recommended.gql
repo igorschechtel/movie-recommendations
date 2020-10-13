@@ -1,0 +1,12 @@
+query Reccomended($userId: ID!) {
+  User(userId: $userId) {
+    recommendedMovies {
+      title
+      year
+      runtime
+      poster
+      imdbRating
+      movieId
+    }
+  }
+}

@@ -1,16 +1,52 @@
 <template>
   <v-app-bar app color="grey darken-4" dark>
-    <div class="d-flex align-center">
-      <v-img
-        alt="Popcorny Logo"
-        class="shrink mr-4"
-        contain
-        src="../assets/popcorn-icon.png"
-        transition="scale-transition"
-        width="40"
-      />
-      <router-link to="/"><h1 class="brand-title">Popcorny</h1></router-link>
-    </div>
+    <v-row class="align-center">
+      <v-col cols="auto">
+        <router-link to="/">
+          <div class="d-flex align-center">
+            <v-img
+              alt="Popcorny Logo"
+              class="shrink"
+              contain
+              src="@/assets/popcorn-icon.png"
+              transition="scale-transition"
+              width="40"
+            />
+            <h1 class="brand-title d-none d-sm-inline mx-4">Popcorny</h1>
+          </div>
+        </router-link>
+      </v-col>
+
+      <v-col v-if="userIsLoggedIn">
+        <div class="mx-4 mt-6" style="max-width: 400px;">
+          <v-text-field
+            append-icon="mdi-search"
+            placeholder="Search for movies"
+          />
+        </div>
+      </v-col>
+
+      <v-col cols="auto" v-if="userIsLoggedIn">
+        <div>
+          <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+              <div v-bind="attrs" v-on="on">
+                <v-icon large class="mr-2">mdi-account-box</v-icon>
+                <span class="d-none d-sm-inline">{{ userName }}</span>
+              </div>
+            </template>
+            <v-list>
+              <v-list-item link to="/profile">
+                <v-list-item-title>Edit profile</v-list-item-title>
+              </v-list-item>
+              <v-list-item link @click="$router.go()">
+                <v-list-item-title>Sign Out</v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </div>
+      </v-col>
+    </v-row>
   </v-app-bar>
 </template>
 
@@ -18,9 +54,12 @@
 export default {
   computed: {
     userIsLoggedIn() {
-      return this.$store.state.username !== undefined;
-    }
-  }
+      return this.$store.getters.userIsLoggedIn;
+    },
+    userName() {
+      return this.$store.getters.userName;
+    },
+  },
 };
 </script>
 

@@ -3,7 +3,7 @@ import VueRouter from 'vue-router';
 import store from '../store';
 
 import Register from '../views/Register.vue';
-import Login from '../views/Login.vue';
+import SignIn from '../views/SignIn.vue';
 import Home from '../views/Home.vue';
 
 Vue.use(VueRouter);
@@ -16,9 +16,9 @@ const routes = [
     meta: { requiresAuth: false },
   },
   {
-    path: '/login',
-    name: 'Login',
-    component: Login,
+    path: '/signin',
+    name: 'SignIn',
+    component: SignIn,
     meta: { requiresAuth: false },
   },
   {
@@ -37,7 +37,7 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !store.getters.userIsLoggedIn) {
     next({
-      path: '/login',
+      path: '/signin',
     });
   } else next();
 });
