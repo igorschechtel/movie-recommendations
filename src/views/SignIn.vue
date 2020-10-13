@@ -34,6 +34,14 @@
                 >
               </v-col>
             </v-row>
+
+            <v-row>
+              <v-col class="text-center">
+                <router-link to="/register" class="grey--text"
+                  >Don't have an account? Register here</router-link
+                >
+              </v-col>
+            </v-row>
           </v-container>
         </v-card>
       </v-col>
@@ -51,6 +59,7 @@ export default {
     signIn() {
       if (this.inputUsername.length < 4) {
         this.$store.commit('showSnackbar', {
+          bgColor: 'error',
           text: 'Username must have at least 4 characters',
         });
         return;
@@ -71,6 +80,7 @@ export default {
             this.$router.replace('/');
           } else {
             this.$store.commit('showSnackbar', {
+              bgColor: 'error',
               text: 'User not found',
             });
           }

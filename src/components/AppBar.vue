@@ -37,7 +37,7 @@
             </template>
             <v-list>
               <v-list-item link to="/profile">
-                <v-list-item-title>Edit profile</v-list-item-title>
+                <v-list-item-title>Edit Profile</v-list-item-title>
               </v-list-item>
               <v-list-item link @click="$router.go()">
                 <v-list-item-title>Sign Out</v-list-item-title>

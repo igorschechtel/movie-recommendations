@@ -73,6 +73,7 @@ export default {
       // Check username length
       if (this.inputUsername.length < 4) {
         this.$store.commit('showSnackbar', {
+          bgColor: 'error',
           text: 'Username must have at least 4 characters',
         });
         return;
@@ -87,6 +88,7 @@ export default {
         .then(({ data }) => {
           if (data.User.length > 0) {
             this.$store.commit('showSnackbar', {
+              bgColor: 'error',
               text: 'This username is already taken',
             });
           }
