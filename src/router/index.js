@@ -7,6 +7,8 @@ import SignIn from '../views/SignIn.vue';
 import Home from '../views/Home.vue';
 import EditProfile from '../views/EditProfile.vue';
 import MovieDetails from '../views/MovieDetails.vue';
+import SearchResults from '../views/SearchResults.vue';
+
 
 Vue.use(VueRouter);
 
@@ -39,6 +41,12 @@ const routes = [
     path: '/movie/:id',
     name: 'MovieDetails',
     component: MovieDetails,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/search',
+    name: 'SearchResults',
+    component: SearchResults,
     meta: { requiresAuth: true },
   },
 ];

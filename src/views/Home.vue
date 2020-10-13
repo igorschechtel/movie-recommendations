@@ -1,19 +1,19 @@
 <template>
-  <v-container>
+  <v-container class="pt-4 pb-16">
     <!-- Top picks -->
     <v-row>
       <v-col class="d-flex align-center">
         <h2 class="font-weight-bold primary--text mr-5" style="font-size: 3rem">
           top picks
         </h2>
-        <v-btn
+        <!-- <v-btn
           small
           depressed
           tile
           color="secondary"
           style="color: #444; border: 1px solid #ddd !important; transform: translateY(5px)"
           >see more</v-btn
-        >
+        > -->
       </v-col>
     </v-row>
     <v-row>
@@ -48,7 +48,7 @@
       </v-col>
     </v-row>
 
-    <v-divider></v-divider>
+    <v-divider class="mb-4 mt-8"></v-divider>
 
     <!-- Recent releases -->
     <v-row>
@@ -59,14 +59,14 @@
         >
           recent releases
         </h2>
-        <v-btn
+        <!-- <v-btn
           small
           depressed
           tile
           color="secondary"
           style="color: #444; border: 1px solid #ddd !important; transform: translateY(5px)"
           >see more</v-btn
-        >
+        > -->
       </v-col>
     </v-row>
 

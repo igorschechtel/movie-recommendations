@@ -22,6 +22,8 @@
           <v-text-field
             append-icon="mdi-search"
             placeholder="Search for movies"
+            v-model="searchInput"
+            @keyup.enter="doSearch"
           />
         </div>
       </v-col>
@@ -52,12 +54,27 @@
 
 <script>
 export default {
+  data: () => ({
+    searchInput: '',
+  }),
+
   computed: {
     userIsLoggedIn() {
       return this.$store.getters.userIsLoggedIn;
     },
     userName() {
       return this.$store.getters.userName;
+    },
+  },
+
+  methods: {
+    doSearch() {
+      const query = this.searchInput;
+      this.searchInput = '';
+      this.$router.push({
+        path: '/search',
+        query: { query },
+      });
     },
   },
 };

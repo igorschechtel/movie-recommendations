@@ -1,0 +1,10 @@
+query SearchResults($query: String!) {
+  Movie(filter: { title_contains: $query }) {
+    title
+    year
+    runtime
+    poster
+    imdbRating
+    movieId
+  }
+}

@@ -15,45 +15,56 @@
 
                 <p class="mt-6" style="font-size: 1.2rem">{{ movie.plot }}</p>
 
-                <template v-if="movie.runtime">
-                  <h4 class="primary--text mt-6">Runtime</h4>
-                  <span>{{ movie.runtime + ' min' }}</span>
-                </template>
+                <v-row no-gutters>
+                  <v-col cols="6" v-if="movie.runtime">
+                    <h4 class="primary--text mt-2">Runtime</h4>
+                    <span>{{ movie.runtime + ' min' }}</span>
+                  </v-col>
 
-                <template v-if="movie.released">
-                  <h4 class="primary--text mt-2">Release date</h4>
-                  <span>{{ movie.released }}</span>
-                </template>
+                  <v-col cols="6" v-if="movie.released">
+                    <h4 class="primary--text mt-2">Release date</h4>
+                    <span>{{ movie.released }}</span>
+                  </v-col>
 
-                <template v-if="movie.budget">
-                  <h4 class="primary--text mt-2">Budget</h4>
-                  <span>{{
-                    movie.budget.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                    })
-                  }}</span>
-                </template>
+                  <v-col cols="6" v-if="movie.budget">
+                    <h4 class="primary--text mt-2">Budget</h4>
+                    <span>{{
+                      movie.budget.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })
+                    }}</span>
+                  </v-col>
 
-                <template v-if="movie.revenue">
-                  <h4 class="primary--text mt-2">Revenue</h4>
-                  <span>{{
-                    movie.revenue.toLocaleString('en-US', {
-                      style: 'currency',
-                      currency: 'USD',
-                    })
-                  }}</span>
-                </template>
+                  <v-col cols="6" v-if="movie.revenue">
+                    <h4 class="primary--text mt-2">Revenue</h4>
+                    <span>{{
+                      movie.revenue.toLocaleString('en-US', {
+                        style: 'currency',
+                        currency: 'USD',
+                      })
+                    }}</span>
+                  </v-col>
 
-                <template v-if="movie.imdbRating">
-                  <h4 class="primary--text mt-2">IMDB Rating</h4>
-                  <span>{{ movie.imdbRating + '/10' }}</span>
-                </template>
+                  <v-col cols="6" v-if="movie.imdbRating">
+                    <h4 class="primary--text mt-2">IMDB Rating</h4>
+                    <span>{{ movie.imdbRating + '/10' }}</span>
+                  </v-col>
 
-                <template v-if="movie.countries && movie.countries.length > 0">
-                  <h4 class="primary--text mt-2">Countries</h4>
-                  <span>{{ movie.countries.join(', ') }}</span>
-                </template>
+                  <v-col
+                    cols="6"
+                    v-if="movie.countries && movie.countries.length > 0"
+                  >
+                    <h4 class="primary--text mt-2">Countries</h4>
+                    <span>{{ movie.countries.join(', ') }}</span>
+                  </v-col>
+                </v-row>
+
+                <Rating
+                  class="mt-12"
+                  :imdbRating="movie.imdbRating"
+                  :movieId="movie.movieId"
+                />
               </v-col>
 
               <v-col cols="auto">
@@ -89,6 +100,7 @@
 
 <script>
 import MovieCard from '../components/MovieCard';
+import Rating from '../components/Rating';
 
 export default {
   data: () => ({
@@ -97,6 +109,7 @@ export default {
 
   components: {
     MovieCard,
+    Rating,
   },
 
   watch: {
