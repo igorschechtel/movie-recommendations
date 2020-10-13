@@ -8,6 +8,7 @@ import Home from '../views/Home.vue';
 import EditProfile from '../views/EditProfile.vue';
 import MovieDetails from '../views/MovieDetails.vue';
 import SearchResults from '../views/SearchResults.vue';
+import GenreResults from '../views/GenreResults.vue';
 
 
 Vue.use(VueRouter);
@@ -47,6 +48,12 @@ const routes = [
     path: '/search',
     name: 'SearchResults',
     component: SearchResults,
+    meta: { requiresAuth: true },
+  },
+  {
+    path: '/genre/:genre',
+    name: 'GenreResults',
+    component: GenreResults,
     meta: { requiresAuth: true },
   },
 ];

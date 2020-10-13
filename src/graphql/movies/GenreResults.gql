@@ -1,0 +1,13 @@
+query SearchResults($genre: String!) {
+  Movie(filter: { in_genre: { name: $genre } }) {
+    title
+    year
+    runtime
+    poster
+    imdbRating
+    movieId
+    in_genre {
+      name
+    }
+  }
+}

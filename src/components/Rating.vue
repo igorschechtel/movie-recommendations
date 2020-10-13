@@ -38,7 +38,12 @@ export default {
             rating,
           },
         })
-        .then(({ data }) => console.log(data));
+        .then(({ data }) => {
+          this.$store.commit('showSnackbar', {
+            bgColor: 'success',
+            text: "Rating sent successfully"
+          })
+        });
     },
   },
 };

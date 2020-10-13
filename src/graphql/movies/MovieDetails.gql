@@ -1,5 +1,6 @@
 query MovieDetails($id: ID!) {
   Movie(movieId: $id) {
+    movieId
     budget
     countries
     imdbRating
@@ -10,6 +11,9 @@ query MovieDetails($id: ID!) {
     runtime
     title
     year
+    in_genre {
+      name
+    }
     similarMovies {
       title
       year
@@ -17,6 +21,9 @@ query MovieDetails($id: ID!) {
       poster
       imdbRating
       movieId
+      in_genre {
+        name
+      }
     }
   }
 }

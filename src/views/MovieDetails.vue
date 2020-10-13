@@ -13,6 +13,8 @@
                   {{ movie.year }}
                 </h3>
 
+                <v-btn :to="'/genre/' + genre.name" x-small class="mr-2 grey--text text--darken-3" color="secondary" v-for="genre in movie.in_genre" :key="genre.name">{{genre.name}}</v-btn>
+
                 <p class="mt-6" style="font-size: 1.2rem">{{ movie.plot }}</p>
 
                 <v-row no-gutters>

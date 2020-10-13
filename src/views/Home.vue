@@ -23,8 +23,8 @@
           :variables="{ userId }"
         >
           <template v-slot="{ result: { loading, error, data } }">
-            <div v-if="loading" class="loading apollo">Carregando...</div>
-            <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
+            <div v-if="loading" class="loading apollo">Loading...</div>
+            <div v-else-if="error" class="error apollo">An error occurred :(</div>
             <template v-else-if="data">
               <v-slide-group
                 show-arrows="desktop"
@@ -74,9 +74,9 @@
       <v-col>
         <ApolloQuery :query="require('@/graphql/movies/RecentReleases.gql')">
           <template v-slot="{ result: { loading, error, data } }">
-            <div v-if="loading" class="loading apollo">Carregando...</div>
+            <div v-if="loading" class="loading apollo">Loading...</div>
 
-            <div v-else-if="error" class="error apollo">Um erro ocorreu :(</div>
+            <div v-else-if="error" class="error apollo">An error occurred :(</div>
 
             <v-slide-group show-arrows="desktop" v-else-if="data">
               <v-slide-item v-for="movie in data.Movie" :key="movie.movieId">
