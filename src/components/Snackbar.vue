@@ -4,6 +4,7 @@
     :color="snackbar.bgColor"
     :dark="snackbar.isDark"
     style="z-index: 5 !important;"
+    :timeout="2000"
   >
     {{ snackbar.text }}
 
@@ -24,17 +25,17 @@ export default {
       },
       set(show) {
         if (show) {
-          this.$store.commit('showSnackbar');
+          this.$store.commit("showSnackbar");
         } else {
-          this.$store.commit('hideSnackbar');
+          this.$store.commit("hideSnackbar");
         }
-      },
+      }
     },
     snackbar: {
       get() {
         return this.$store.getters.snackProps;
-      },
-    },
-  },
+      }
+    }
+  }
 };
 </script>

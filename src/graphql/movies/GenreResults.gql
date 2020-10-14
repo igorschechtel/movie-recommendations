@@ -1,5 +1,5 @@
 query SearchResults($genre: String!) {
-  Movie(filter: { in_genre: { name: $genre } }) {
+  Movie(filter: { in_genre_single: { name: $genre } }, first: 60) {
     title
     year
     runtime

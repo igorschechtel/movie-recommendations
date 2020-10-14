@@ -9,9 +9,9 @@
         style="text-decoration: none"
         :to="'/movie/' + movie.movieId"
       >
-        <h3 class="grey--text text--darken-3">
-          {{ movie.title }}
-        </h3>
+          <h3 class="grey--text text--darken-3" style="white-space: nowrap; overflow-x: hidden;">
+            {{ movie.title }}
+          </h3>
       </router-link>
       <span class="grey--text">{{ movie.year }}</span>
       <span v-if="movie.runtime" class="grey--text">{{

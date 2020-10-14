@@ -1,26 +1,37 @@
 <template>
   <v-container>
-    <v-row v-if="movie">
+    <template v-if="loading">
+      <Loading />
+    </template>
+    <v-row v-else-if="movie">
       <v-col>
         <v-card>
           <v-container class="px-8">
             <v-row>
               <v-col>
-                <h1 class="grey-text text--darken-3" style="font-size: 3rem;">
+                <h1 style="font-size: 2.5rem;">
                   {{ movie.title }}
                 </h1>
-                <h3 class="secondary--text text--darken-3">
+                <h3 class="secondary--text text--darken-4">
                   {{ movie.year }}
                 </h3>
 
-                <v-btn :to="'/genre/' + genre.name" x-small class="mr-2 grey--text text--darken-3" color="secondary" v-for="genre in movie.in_genre" :key="genre.name">{{genre.name}}</v-btn>
+                <v-btn
+                  :to="'/genre/' + genre.name"
+                  x-small
+                  class="mr-2 mt-3 grey--text text--darken-3"
+                  color="secondary"
+                  v-for="genre in movie.in_genre"
+                  :key="genre.name"
+                  >{{ genre.name }}</v-btn
+                >
 
                 <p class="mt-6" style="font-size: 1.2rem">{{ movie.plot }}</p>
 
                 <v-row no-gutters>
                   <v-col cols="6" v-if="movie.runtime">
                     <h4 class="primary--text mt-2">Runtime</h4>
-                    <span>{{ movie.runtime + ' min' }}</span>
+                    <span>{{ movie.runtime + " min" }}</span>
                   </v-col>
 
                   <v-col cols="6" v-if="movie.released">
@@ -31,9 +42,9 @@
                   <v-col cols="6" v-if="movie.budget">
                     <h4 class="primary--text mt-2">Budget</h4>
                     <span>{{
-                      movie.budget.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
+                      movie.budget.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD"
                       })
                     }}</span>
                   </v-col>
@@ -41,16 +52,16 @@
                   <v-col cols="6" v-if="movie.revenue">
                     <h4 class="primary--text mt-2">Revenue</h4>
                     <span>{{
-                      movie.revenue.toLocaleString('en-US', {
-                        style: 'currency',
-                        currency: 'USD',
+                      movie.revenue.toLocaleString("en-US", {
+                        style: "currency",
+                        currency: "USD"
                       })
                     }}</span>
                   </v-col>
 
                   <v-col cols="6" v-if="movie.imdbRating">
                     <h4 class="primary--text mt-2">IMDB Rating</h4>
-                    <span>{{ movie.imdbRating + '/10' }}</span>
+                    <span>{{ movie.imdbRating + "/10" }}</span>
                   </v-col>
 
                   <v-col
@@ -58,7 +69,7 @@
                     v-if="movie.countries && movie.countries.length > 0"
                   >
                     <h4 class="primary--text mt-2">Countries</h4>
-                    <span>{{ movie.countries.join(', ') }}</span>
+                    <span>{{ movie.countries.join(", ") }}</span>
                   </v-col>
                 </v-row>
 
@@ -101,23 +112,26 @@
 </template>
 
 <script>
-import MovieCard from '../components/MovieCard';
-import Rating from '../components/Rating';
+import MovieCard from "../components/MovieCard";
+import Rating from "../components/Rating";
+import Loading from "../components/Loading";
 
 export default {
   data: () => ({
     movie: undefined,
+    loading: false
   }),
 
   components: {
     MovieCard,
     Rating,
+    Loading
   },
 
   watch: {
-    '$route.params.id'() {
+    "$route.params.id"() {
       this.fetchMovieDetails();
-    },
+    }
   },
 
   created() {
@@ -126,18 +140,22 @@ export default {
 
   methods: {
     fetchMovieDetails() {
+      this.loading = true;
+      window.scrollTo(0, 0);
+
       const id = this.$route.params.id;
 
       this.$apollo
         .query({
-          query: require('@/graphql/movies/MovieDetails.gql'),
-          variables: { id },
+          query: require("@/graphql/movies/MovieDetails.gql"),
+          variables: { id }
         })
         .then(({ data }) => {
           this.movie = data.Movie[0];
+          this.loading = false;
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

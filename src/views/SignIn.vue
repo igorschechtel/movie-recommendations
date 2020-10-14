@@ -18,7 +18,7 @@
               <v-col class="py-1">
                 <v-text-field
                   @keyup.enter="signIn"
-                  placeholder="Your name"
+                  placeholder="Your username"
                   v-model="inputUsername"
                 ></v-text-field>
               </v-col>

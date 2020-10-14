@@ -1,4 +1,4 @@
-query {
+query RecentReleases {
   Movie(orderBy: released_desc, first: 20, filter: { released_not: null }) {
     title
     year

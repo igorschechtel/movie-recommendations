@@ -1,0 +1,7 @@
+query GetUserRating($userId: ID!, $movieId: ID!) {
+  User(userId: $userId) {
+    RATED_rel(filter: {Movie: {movieId: $movieId}}) {
+      rating
+    }
+  }
+}

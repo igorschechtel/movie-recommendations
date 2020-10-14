@@ -23,8 +23,12 @@
           :variables="{ userId }"
         >
           <template v-slot="{ result: { loading, error, data } }">
-            <div v-if="loading" class="loading apollo">Loading...</div>
-            <div v-else-if="error" class="error apollo">An error occurred :(</div>
+            <template v-if="loading">
+              <Loading />
+            </template>
+            <div v-else-if="error" class="error apollo">
+              An error occurred :(
+            </div>
             <template v-else-if="data">
               <v-slide-group
                 show-arrows="desktop"
@@ -74,9 +78,13 @@
       <v-col>
         <ApolloQuery :query="require('@/graphql/movies/RecentReleases.gql')">
           <template v-slot="{ result: { loading, error, data } }">
-            <div v-if="loading" class="loading apollo">Loading...</div>
+            <template v-if="loading">
+              <Loading />
+            </template>
 
-            <div v-else-if="error" class="error apollo">An error occurred :(</div>
+            <div v-else-if="error" class="error apollo">
+              An error occurred :(
+            </div>
 
             <v-slide-group show-arrows="desktop" v-else-if="data">
               <v-slide-item v-for="movie in data.Movie" :key="movie.movieId">
@@ -91,17 +99,19 @@
 </template>
 
 <script>
-import MovieCard from '../components/MovieCard';
+import MovieCard from "../components/MovieCard";
+import Loading from "../components/Loading";
 
 export default {
   components: {
     MovieCard,
+    Loading
   },
 
   computed: {
     userId() {
       return this.$store.getters.userId;
-    },
-  },
+    }
+  }
 };
 </script>
